@@ -87,6 +87,7 @@
       z-index:22; background:rgba(0,0,0,0.7); color:#fff;
       padding:8px 12px;border-radius:8px;font-size:14px;display:none;
     }
+  
   </style>
 </head>
 <body>
@@ -171,6 +172,28 @@
         video.play().catch(()=>{});
         audio.play().catch(()=>{});
       }
+    });
+  </script>
+   
+  <script>
+    // ✅ Исправление 1: Safari иногда не обрабатывает click
+    document.addEventListener("touchstart", function(){}, true);
+
+    // ✅ Исправление 2: корректная высота для iPhone (100vh)
+    function fixVh() {
+      document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+    }
+    fixVh();
+    window.addEventListener('resize', fixVh);
+
+    // ✅ Исправление 3: проверка поддержки Promise/Fetch
+    if (!window.Promise || !window.fetch) {
+      alert("Ваш Safari устарел, обновите iOS для корректной работы сайта.");
+    }
+
+    // ✅ Пример логики
+    document.getElementById('btn').addEventListener('click', () => {
+      alert('Работает даже на iPhone!');
     });
   </script>
 </body>
